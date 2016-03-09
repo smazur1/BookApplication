@@ -13,12 +13,15 @@ public class BookApp {
 		System.out.println("Enter Book SKU : ");
 		sku = keyboard.next();
 
-		Book java1Book = BookDB.getBook(sku);
+		try {
+			Book java1Book = BookDB.getBook(sku);
 
-		displayText = java1Book.getDisplayText();
-		System.out.println("Author   \t\t\t\t  Title  \t\t\t Description");
-		System.out.println(displayText);
-
+			displayText = java1Book.getDisplayText();
+			System.out.println("Author   \t\t\t\t  Title  \t\t\t Description");
+			System.out.println(displayText);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Book not found");
+		}
 	}
 
 }
