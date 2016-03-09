@@ -27,7 +27,7 @@ public class BookDB {
 			b.setAuthor("Bruce Eckel");
 			b.setDescription("Details about Java under the hood");
 			b.setPrice(20.00);
-			b.setIsInStock(true);
+			b.setIsInStock(false);
 
 			break;
 

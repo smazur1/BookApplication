@@ -72,4 +72,17 @@ public class Book {
 		return displayText;
 	}
 
+	// Get Pricing for Requested Number of Books
+	public double getBookPricing(int value) {
+		int numRequest = value; 
+		double pricing = 0.0;
+
+		if (isInStock == true) {
+			pricing = numRequest * price;
+		}	else {
+			pricing = -1.0;
+		}
+		return pricing;
+	}
+
 }

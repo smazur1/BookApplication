@@ -7,6 +7,9 @@ public class BookApp {
 
 		String sku;
 		String displayText;
+		int numBooks = 0;
+		double price = 0.0;
+		String title;
 
 		Scanner keyboard = new Scanner(System.in);
 
@@ -14,14 +17,31 @@ public class BookApp {
 		sku = keyboard.next();
 
 		try {
-			Book java1Book = BookDB.getBook(sku);
+			Book b = BookDB.getBook(sku);
 
-			displayText = java1Book.getDisplayText();
+			displayText = b.getDisplayText();
 			System.out.println("Author   \t\t\t\t  Title  \t\t\t Description");
 			System.out.println(displayText);
+
+			System.out.println("How many copies of this book do you want to order? ");
+			numBooks = keyboard.nextInt();
+			price = b.getBookPricing(numBooks);
+			if (price < 0.0) {
+				System.out.println("This book is not in stock");
+			}
+			else {
+				title = b.getTitle();
+				System.out.printf(numBooks + " copies of " + "'" + title + "'" + " costs $%.2f%n" , price );
+
+			}
+
+
 		} catch (IllegalArgumentException e) {
 			System.out.println("Book not found");
 		}
+
+
+
 	}
 
 }
