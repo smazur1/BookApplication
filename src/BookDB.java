@@ -1,83 +1,53 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class BookDB {
-
-
 
 	public static Book getBook(String value) {
 
 		Book b = new Book();
 
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = "select * from books where sku = \'" + value + "\'";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// con = DriverManager.getConnection("jdbc:oracle:thin:sys as
+			// sysdba/oracle@localhost:1521:orcl");
+			con = DriverManager.getConnection("jdbc:oracle:thin:ora1/ora1@localhost:1521:orcl");
 
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				b = new Book(rs.getString("sku"), rs.getString("title"), rs.getString("author"),
+						rs.getString("description"), rs.getDouble("price"));
 
-		switch (value) {
+				System.out.println(rs.getString(1));
+				System.out.println(rs.getString(2));
+				System.out.println(rs.getString(3));
+				System.out.println(rs.getString(4));
+				System.out.println(rs.getDouble(5) + "\n");
 
-		case "Java1001":
-			b.setSku("Java1001");
-			b.setTitle("Head First Java");
-			b.setAuthor("Kathy Sierra and Bert Bates");
-			b.setDescription("Easy to read java workbook");
-			b.setPrice(47.50);
-			b.setIsInStock(true);
-
-			break;
-
-		case "Java1002":
-			b.setSku("java1002");
-			b.setTitle("Thinking in Java");
-			b.setAuthor("Bruce Eckel");
-			b.setDescription("Details about Java under the hood");
-			b.setPrice(20.00);
-			b.setIsInStock(false);
-
-			break;
-
-		case "Orcl1003":
-			b.setSku("Orcl1003");
-			b.setTitle("OCP: Oracle Certified Professional Java SE");
-			b.setAuthor("Jeanne Boyarsky");
-			b.setDescription("Everything you need to know in one place");
-			b.setPrice(45.00);
-			b.setIsInStock(true);
-
-			break;
-
-		case "Python1004":
-			b.setSku("Python1004");
-			b.setTitle("Automate the Boring Stuff with Python");
-			b.setAuthor("Al Sweigart");
-			b.setDescription("Fun with Python");
-			b.setPrice(10.50);
-			b.setIsInStock(true);
-
-			break;
-
-		case "Zombie1005":
-			b.setSku("Zombie1005");
-			b.setTitle("The Maker's Guide to the Zombie Apocalypse");
-			b.setAuthor("Simon Monk");
-			b.setDescription("Defend Your Base with Simple Circuits, Arduino, and Raspberry Pi");
-			b.setPrice(16.50);
-			b.setIsInStock(true);
-
-			break;
-
-		case "Rasp1006":
-			b.setSku("Rasp1006");
-			b.setTitle("Raspberry Pi Projects for the Evil Genius");
-			b.setAuthor("Donald Norris");
-			b.setDescription("A dozen fiendishly fun projects for the Raspberry Pi!");
-			b.setPrice(14.75);
-			b.setIsInStock(true);
-
-			break;
-
-		default:
-			throw new IllegalArgumentException("Book not found: ");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+
 		return b;
 	}
 
-
 }
-
-

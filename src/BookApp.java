@@ -17,6 +17,7 @@ public class BookApp {
 		sku = keyboard.next();
 
 		try {
+
 			Book b = BookDB.getBook(sku);
 
 			displayText = b.getDisplayText();
@@ -39,9 +40,7 @@ public class BookApp {
 		} catch (IllegalArgumentException e) {
 			System.out.println("Book not found");
 		}
-
-
-
+		keyboard.close();
 	}
 
 }

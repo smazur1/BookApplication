@@ -17,13 +17,24 @@ public class Book {
 	}
 
 	// Constructor
-	public Book(String value) {
+	public Book(String value, double cost) {
 		sku = value;
 		title = "";
 		author = "";
 		description = "";
-		price = 0.0;
+		price = cost;
 	}
+
+	// Constructor
+	public Book(String _sku, String _title, String _author, String _description, double _price) {
+		sku = _sku;
+		title = _title;
+		author = _author;
+		description = _description;
+		price = _price;
+		isInStock = true;
+	}
+
 
 	//  Setters
 	public void setSku(String value) {
