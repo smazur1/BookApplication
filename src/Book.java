@@ -79,7 +79,7 @@ public class Book {
 	// Get Display Text	
 	public String getDisplayText() {
 		String displayText;
-		displayText = (author + "\t\t" + title + "\t\t" + description );
+		displayText = (author + "\t" + title + "\t" + description );
 		return displayText;
 	}
 
